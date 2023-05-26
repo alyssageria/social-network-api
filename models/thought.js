@@ -7,7 +7,7 @@ const thoughtSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now,
-            get: (timestamp) => timestamp.toISOString()
+            // get: (timestamp) => timestamp.toISOString()
         },
         username: { type: String, required: true },
         reactions: [

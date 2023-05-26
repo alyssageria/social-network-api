@@ -7,8 +7,8 @@ var emailValidation = function (email) {
 
 const userSchema = new Schema(
     {
-        username: { type: String, required: true, unique: true, trimmed: true },
-        email: { type: String, required: true, unique: true, validate: emailValidation },
+        username: { type: String, required: true, trimmed: true },
+        email: { type: String, required: true, validate: emailValidation },
         thoughts: [
             {
                 type: Schema.Types.ObjectId,

@@ -11,7 +11,7 @@ const reactionSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now,
-            get: (timestamp) => timestamp.toISOString()
+            // get: (timestamp) => timestamp.toISOString()
         }
     },
     {
@@ -22,4 +22,4 @@ const reactionSchema = new Schema(
     }
 )
 
-module.exports = { reactionSchema };
+module.exports = reactionSchema;

@@ -1,6 +1,5 @@
 const connection = require('../config/connection');
-const User = require('../models/user');
-const Thought = require('../models/thought');
+const { User, Thought } = require('../models');
 const { randomUser, randomThought } = require('./data');
 
 console.time('seeding');
@@ -16,14 +15,16 @@ connection.once('open', async () => {
 
     for (let i = 0; i < 10; i++) {
         const user = randomUser();
-        const selectedThought = randomThought();
+        // const selectedThought = randomThought();
         const newUser = {
             username: user,
             email: user + '@gmail.com',
-            thought: selectedThought
         }
         users.push(newUser);
+        console.log(users)
     }
+
+
 
     await User.collection.insertMany(users);
 
