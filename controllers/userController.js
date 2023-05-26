@@ -8,7 +8,7 @@ module.exports = {
             .catch((err) => res.status(500).json(err));
     },
 
-    // get one user
+    // GET - one user
     getOneUser(req, res) {
         User.findOne({ _id: req.params.userId })
             .populate('thoughts')
@@ -27,7 +27,7 @@ module.exports = {
             });
     },
 
-    // add friend
+    // POST -  add friend
     addFriend(req, res) {
         User.findOneAndUpdate(
             { _id: req.params.userId },
@@ -40,7 +40,7 @@ module.exports = {
             });
     },
 
-    // remove friend
+    // PUT - remove friend
     removeFriend(req, res) {
         User.findOneAndUpdate(
             { _id: req.params.userId },
@@ -51,20 +51,20 @@ module.exports = {
                 console.log(err);
                 return res.status(500).json(err);
             });
-    }
+    },
 
     // PUT - update a user
-    // updateUsers(req, res) {
-    //     User.findOneAndUpdate(
-    //         { _id: req.params.courseId },
-    //         { $set: req.body },
-    //         { runValidators: true, new: true }
-    //     )
-    //         .then((users) =>
-    //             !users
-    //                 ? res.status(404).json({ message: 'No users with this id!' })
-    //                 : res.json(users)
-    //         )
-    //         .catch((err) => res.status(500).json(err));
-    // }
+    updateUsers(req, res) {
+        User.findOneAndUpdate(
+            { _id: req.params.userId },
+            { $set: req.body },
+            { runValidators: true, new: true }
+        )
+            .then((users) =>
+                !users
+                    ? res.status(404).json({ message: 'No users with this id!' })
+                    : res.json(users)
+            )
+            .catch((err) => res.status(500).json(err));
+    }
 }
