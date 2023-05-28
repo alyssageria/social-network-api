@@ -10,7 +10,7 @@ module.exports = {
 
     // GET - one thought
     getOneThought(req, res) {
-        Thought.findOne({ _id: req.parms.thoughtId })
+        Thought.findOne({ _id: req.params.thoughtId })
             .then((thought) => res.json(thought))
             .catch((err) => res.status(500).json(err));
     },
@@ -53,5 +53,17 @@ module.exports = {
             console.log(err);
             return res.status(500).json(err);
         }
-    }
+    },
+
+    // DEL - delete a thought
+    deleteThought(req, res) {
+        Thought.findOneAndDelete({ _id: req.params.thoughtId })
+            .then((thought) =>
+                !thought
+                    ? res.status(404).json({ message: 'No thought with that ID' })
+                    : User.deleteMany({ _id: { $in: thought.users } })
+            )
+            .then(() => res.json({ message: 'Thought deleted!' }))
+            .catch((err) => res.status(500).json(err));
+    },
 }

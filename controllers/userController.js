@@ -27,6 +27,32 @@ module.exports = {
             });
     },
 
+    // PUT - update a user
+    updateUsers(req, res) {
+        User.findOneAndUpdate(
+            { _id: req.params.userId },
+            { $set: req.body },
+            { runValidators: true, new: true }
+        )
+            .then((users) =>
+                !users
+                    ? res.status(404).json({ message: 'No users with this id!' })
+                    : res.json(users)
+            )
+            .catch((err) => res.status(500).json(err));
+    },
+
+    // DELETE - delete a user
+    deleteUsers(req, res) {
+        User.findOneAndDelete({ _id: req.params.userId })
+            .then((user) =>
+                !user
+                    ? res.status(404).json({ message: 'No user with this id!' })
+                    : res.json({ message: 'User successfully deleted' })
+            )
+            .catch((err) => res.status(500).json(err));
+    },
+
     // POST -  add friend
     addFriend(req, res) {
         User.findOneAndUpdate(
@@ -52,19 +78,4 @@ module.exports = {
                 return res.status(500).json(err);
             });
     },
-
-    // PUT - update a user
-    updateUsers(req, res) {
-        User.findOneAndUpdate(
-            { _id: req.params.userId },
-            { $set: req.body },
-            { runValidators: true, new: true }
-        )
-            .then((users) =>
-                !users
-                    ? res.status(404).json({ message: 'No users with this id!' })
-                    : res.json(users)
-            )
-            .catch((err) => res.status(500).json(err));
-    }
 }
